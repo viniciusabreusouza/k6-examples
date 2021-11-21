@@ -1,4 +1,4 @@
-# K6 - Load and Stress Test
+# K6 - Creating Load an Stress Tests with k6
 
 This repository show to use [k6](https://k6.io/) to create Load and Stress tests.
 
