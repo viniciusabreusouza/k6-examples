@@ -11,9 +11,9 @@ export const options = {
     http_req_duration: ['p(95)<250'], // 95% of requests should be below 250ms
   },
   stages: [
-    { duration: '30s', target: 20 }, // Linearly ramp up from 1 to 20 VUs during first 30 seconds
-    { duration: '1m30s', target: 10 }, // Ramp-down from 20 to 10 VUs for 1m30s
-    { duration: '20s', target: 0 }, // Ramp-down from 10 to 0 VUs for 0s
+    { duration: '30s', target: 20 },   // simulate ramp-up of traffic from 1 to 20 users over 30 seconds.
+    { duration: '1m30s', target: 10 }, // ramp-down to 10 users over 1 min and 30 sec
+    { duration: '20s', target: 0 },    // ramp-down to 0 users
   ],
 };
 
