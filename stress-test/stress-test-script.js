@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
+import { sleep, check } from 'k6';
 
 //Base Url for the test
 // make sure this is not production
@@ -29,16 +29,20 @@ export default function () {
     url: `${BASE_URL}/public/crocodiles/2/`,
   };
   const req3 = {
-    method: 'POST',
+    method: 'GET',
     url: `${BASE_URL}/public/crocodiles/3/`,
   };  
   const req4 = {
-    method: 'POST',
+    method: 'GET',
     url: `${BASE_URL}/public/crocodiles/4/`,
   };  
 
   // call the 4 requests in parallel
   const responses = http.batch([req1, req2, req3, req4]);
+
+  check(responses, {
+    'status is 500': (r) => r.status == 500,
+  });
 
   sleep(1);
 }
