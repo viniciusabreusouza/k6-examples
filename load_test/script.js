@@ -8,7 +8,7 @@ export const BASE_URL = 'https://test-api.k6.io';
 export const options = {
   thresholds: {
     http_req_failed: ['rate<0.01'], // http errors should be less than 1%
-    http_req_duration: ['p(95)<200'], // 95% of requests should be below 200ms
+    http_req_duration: ['p(95)<250'], // 95% of requests should be below 250ms
   },
   stages: [
     { duration: '30s', target: 20 }, // Linearly ramp up from 1 to 20 VUs during first 30 seconds
@@ -22,6 +22,9 @@ export default function () {
   const res = http.get(`${BASE_URL}/public/crocodiles/1/`);
 
   check(res, { 'status was 200': (r) => r.status == 200 });
+
+  if(res.timings.duration > 250)
+    console.log('The response is longer than expected - Response time was ' + String(res.timings.duration) + ' ms');
 
   sleep(1);
 }
